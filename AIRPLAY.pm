@@ -80,8 +80,8 @@ sub getMetadataFor {
     my $metaDuration = $metaData{duration};
     my $metaPosition = $metaData{position};
 
-    $client->streamingSong->duration( $metaDuration );
-    $client->playingSong()->startOffset( $metaPosition );
+    # $client->streamingSong->duration( $metaDuration );
+    # $client->playingSong()->startOffset( $metaPosition );
 
     return {
         artist  => $metaArtist,
