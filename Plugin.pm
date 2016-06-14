@@ -323,7 +323,7 @@ sub conn_read_data {
     my $contentLength = 0;
     my $buffer        = "";
 
-    my $bytesToRead = 1024;
+    my $bytesToRead = 4096;
 
     # read header
     while ( 1 ) {
