@@ -591,8 +591,11 @@ sub conn_handle_request {
                 }
                 elsif ( exists $content{progress} ) {
                     my ( $start, $curr, $end ) = split( /\//, $content{progress} );
-                    $positionRealTime = ( $curr - $start ) / $samplingRate;
-                    $durationRealTime = ( $end - $start ) / $samplingRate;
+
+                    $positionRealTime = int ( ( $curr - $start ) / $samplingRate );
+                    $durationRealTime = int ( ( $end - $start ) / $samplingRate );
+
+                    $log->debug( "Duration: " . $durationRealTime . "; Position: " . $positionRealTime );
 
                     $airTunesMetaData{duration} = $durationRealTime;
                     $airTunesMetaData{position} = $positionRealTime;
@@ -600,8 +603,6 @@ sub conn_handle_request {
                     my $client = $conn->{player};
                     Slim::Control::Request::notifyFromArray( $client, ['newmetadata'] );
                     $client->execute( ['play'] );
-
-                    $log->debug( "Duration: " . $durationRealTime . "; Position: " . $positionRealTime );
                 }
                 else {
                     $log->error( "unable to perform content for req SET_PARAMETER text/parameters: " . $req->content );
